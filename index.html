@@ -4,12 +4,35 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Simple Page</title>
-  <!-- Google Tag Manager -->
+  <!-- Google Tag Manager --> 
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-5FGFGWJQ');</script>
+
+<script>
+  // Function to get query string parameters
+  function getQueryParams() {
+    const params = new URLSearchParams(window.location.search);
+    const key = params.get('key');
+    const value = params.get('value');
+
+    if (key && value) {
+      // Push to the GTM data layer
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        'event': 'queryParamsCaptured',
+        'key': key,
+        'value': value
+      });
+    }
+  }
+
+  // Run the function when the page loads
+  window.onload = getQueryParams;
+</script>
+
 <!-- End Google Tag Manager -->
 </head>
 <body>
