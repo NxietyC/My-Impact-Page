@@ -33,6 +33,38 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   window.onload = getQueryParams;
 </script>
 
+
+<script>
+document.getElementById('sendRequestBtn').addEventListener('click', function() {
+  // Check if the dataLayer exists and has the required key-value pairs
+  if (window.dataLayer && window.dataLayer.length > 0) {
+    // Find the most recent event that pushed the key and value
+    const queryData = window.dataLayer.find(event => event.event === 'queryParamsCaptured');
+
+    if (queryData && queryData.key && queryData.value) {
+      // Construct the URL with query parameters
+      const url = `https://httpbin.org/get?key=${encodeURIComponent(queryData.key)}&value=${encodeURIComponent(queryData.value)}`;
+
+      // Send the GET request
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          // Log the response in the console
+          console.log('API Response:', data);
+        })
+        .catch(error => {
+          console.error('Error fetching data:', error);
+        });
+    } else {
+      console.log('No query parameters found in dataLayer');
+    }
+  } else {
+    console.log('dataLayer is empty or not defined');
+  }
+});
+
+</script>
+
 <!-- End Google Tag Manager -->
 </head>
 <body>
